@@ -15,6 +15,9 @@ var street = "";
 var city = "";
 var phone = "";
 var email = "";
+var username = "";
+var passwordFinal = "";
+
 var displayInfo = document.getElementById('displayInfo');
 
 function validateAll(form){
@@ -35,6 +38,8 @@ function validateAll(form){
     city = form.city.value;
     phone = form.phone.value;
     email = form.email.value;
+    username = form.username.value;
+    //passwordFinal
     
     /* for debugging only */
     displayInfo.innerHTML = "Name: " + name + "<br>";
@@ -46,6 +51,8 @@ function validateAll(form){
     displayInfo.innerHTML += "City: " + city + "<br>";
     displayInfo.innerHTML += "Phone: " + phone + "<br>";
     displayInfo.innerHTML += "Email: " + email + "<br>";
+    displayInfo.innerHTML += "Username: " + username + "<br>";
+    displayInfo.innerHTML += "Password: " + passwordFinal + "<br>";
 }
 
 
@@ -87,8 +94,27 @@ function isEmailOK(inputField, helpId, fieldName){
     return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, fieldName);
 }
 
+function isUsernameOK(inputField, helpId, fieldName){
+    return editNodeText(/^[A-Za-z]+[A-Za-z0-9_]*/, inputField.value, helpId, fieldName);
+}
 
-
+function arePasswordsOK(password, password2, helpId, fieldName){
+    if(password.value.trim().length > 0 && password2.value.trim().length > 0){
+        if(password.value === password2.value){
+            while(helpId.childNodes[0]){
+                helpId.removeChild(helpId.childNodes[0]);
+            }
+            
+            passwordFinal = password.value;
+            helpId.appendChild(document.createTextNode(fieldName + ": " + password.value));
+        }
+    }else{
+        while(helpId.childNodes[0]){
+            helpId.removeChild(helpId.childNodes[0]);
+        }
+        helpId.appendChild(document.createTextNode("Enter your passwords"));
+    }
+}
 
 
 

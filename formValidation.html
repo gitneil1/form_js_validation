@@ -32,6 +32,27 @@
                             <input type="radio" id="sex" name="sex" value="female">Female</input>
                         
                         </li>
+            
+                        <li>
+                            <span>Account information:</span><br>
+                            
+                            <span>Username</span>
+                            
+                            <input type="text" id="username" name="username" size="20" onblur="isUsernameOK(this, document.getElementById('username_help'), 'username')"/>
+                            
+                            <span id="username_help"></span>
+                        </li>
+            
+                        <li>
+                            <span>Password</span>
+                            
+                            <input type="password" id="password" name="password" size="30" onblur="arePasswordsOK(this, document.getElementById('password2'), document.getElementById('password_help'), 'password')"/><br>
+                            
+                            <input type="password" id="password2" name="password2" size="30" onblur="arePasswordsOK(document.getElementById('password'), this, document.getElementById('password_help'), 'password')"/>
+                            
+                            <span id="password_help"></span>
+                            
+                        </li>
                         
                         <li>
                             <span>Education:</span><br>
