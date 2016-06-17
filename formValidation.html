@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Simple Javascript Form Validation</title>
+        
+        <meta charset="UTF-8">
+    </head>
+    
+    <body>
+        <div id="container">
+            <div id="forms_div">
+                <!--<form id="myForm" method="get" onsubmit="return validateAll(this)"> for server-side validation  -->
+                <form id="myForm" method="get">
+                    <ul>
+                        <li>
+                            <span>Please enter your info.</span>
+                        </li>
+                        
+                        <li>
+                            <span>Enter your name: </span>
+
+                            <input type="text" id="name" name="name" size="30" onblur="isTheFieldEmpty(this, document.getElementById('name_help'),'name')"/>
+
+                            <span id="name_help"></span>
+                        </li>
+                        
+                        <li>
+                            <span>Sex:</span><br>
+                            
+                            <input type="radio" id="sex" name="sex" value="male">Male</input>
+                    
+                            <input type="radio" id="sex" name="sex" value="female">Female</input>
+                        
+                        </li>
+                        
+                        <li>
+                            <span>Education:</span><br>
+                            
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="college">College</input><br>
+        
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="masters">Masters Degree</input><br>
+    
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="doctorate">Doctorate</input><br>
+                        </li>
+                        
+                        <li>
+                            <span>Notes:</span><br>
+                            
+                            <textarea id="notes" name="notes" cols="40" rows="7"></textarea>
+                            
+                            <span id="note_help"></span>
+                        </li>
+                        
+                        <li>
+                            <span>Car Preference:</span><br>
+                            
+                            <select name="car">
+                                <option>Lamborghini</option>
+                                
+                                <option>Ferrari</option>
+                                
+                                <option>Bugatti</option>
+                            </select>
+                        </li>
+                        
+                        <li>
+                            <span>Enter your street address</span>
+                            
+                            <input type="text" id="street" name="street" size="30" onblur="isAddressOK(this, document.getElementById('street_help'), 'street')"/>
+                            
+                            <span id="street_help"></span>
+                        </li>
+                        
+                        <li>
+                            <span>Enter your city:</span>
+                            
+                            <input type="text" name="city" size="30" onblur="isTheFieldEmpty(this, document.getElementById('city_help'), 'city')"/>
+                            
+                            <span id="city_help"></span>
+                        </li>
+                        
+                        <li>
+                            <span>Enter your phone number:</span>
+                            
+                            <input type="text" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'),'phone')"/>
+                            
+                            <span id="phone_help"></span>
+                        </li>
+                        
+                        <li>
+                            <span>Enter your email:</span>
+                            
+                            <input type="text" name="email" size="20" onblur="isEmailOK(this, document.getElementById('email_help'), 'email')"/>
+                            
+                            <span id="email_help"></span>
+                        </li>
+                        
+                        <li></li>
+
+                        <li>
+                            <!--<button type="submit">Submit</button>-->
+                            <input type="button" onclick="validateAll(document.getElementById('myForm'))" value="Submit"/>
+                        </li>
+                        
+                    </ul>    
+                </form>
+
+                <div id="displayInfo"></div>
+            </div>
+        </div>
+        
+        <script src="js/formValidator.js">
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
