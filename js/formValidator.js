@@ -152,7 +152,6 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
         if(fullDateObj.isOK){
             console.log(fullDateObj.message);
             dateFinal = monthNum + "/" + dayNum + "/" + yearNum;
-            alert(dateFinal);
         }else{
             console.log(fullDateObj.message);
         }
