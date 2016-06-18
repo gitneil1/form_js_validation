@@ -115,6 +115,32 @@
                             
                             <span id="email_help"></span>
                         </li>
+
+                        <li>
+                            <span>Start Date</span>
+                            
+                            <select id="month">
+                                <option selected disabled>-Month-</option>
+                                <option value="01_January">January</option>
+                                <option value="02_February">February</option>
+                                <option value="03_March">March</option>
+                                <option value="04_April">April</option>
+                                <option value="05_May">May</option>
+                                <option value="06_June">June</option>
+                                <option value="07_July">July</option>
+                                <option value="08_August">August</option>
+                                <option value="09_September">September</option>
+                                <option value="10_October">October</option>
+                                <option value="11_November">November</option>
+                                <option value="12_December">December</option>
+                            </select>
+                            
+                            <input type="text" id="day" name="day" size="4" placeholder="Day" onblur="isDayOK(document.getElementById('month'), this, document.getElementById('year'))"/>
+                            
+                            <input type="text" id="year" name="year" size="4" placeholder="Year" onblur="isDayOK(document.getElementById('month'), document.getElementById('day'), this)"/>
+                            
+                            <span id="date_help"></span>
+                        </li>
                         
                         <li></li>
 
