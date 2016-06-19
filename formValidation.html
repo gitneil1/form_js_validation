@@ -19,7 +19,7 @@
                         <li>
                             <span>Enter your name: </span>
 
-                            <input type="text" id="name" name="name" size="30" onblur="isTheFieldEmpty(this, document.getElementById('name_help'),'name')"/>
+                            <input type="text" id="name" name="name" size="30" onblur="isNameOK(this, document.getElementById('name_help'))"/>
 
                             <span id="name_help"></span>
                         </li>
@@ -27,9 +27,11 @@
                         <li>
                             <span>Sex:</span><br>
                             
-                            <input type="radio" id="sex" name="sex" value="male">Male</input>
+                            <input type="radio" id="sex" name="sex" value="male" onchange="setSexToTrue('male', document.getElementById('sex_help'))">Male</input>
                     
-                            <input type="radio" id="sex" name="sex" value="female">Female</input>
+                            <input type="radio" id="sex" name="sex" value="female" onchange="setSexToTrue('female', document.getElementById('sex_help'))">Female</input>
+                
+                            <span id="sex_help"></span>
                         
                         </li>
             
