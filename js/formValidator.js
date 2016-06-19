@@ -84,17 +84,7 @@ function validateAll(form){
         console.log("Successfully validated objects");
         console.log(nameObj);
         console.log(sexObj);
-        //for(var i = 0; i < listOfValidatedField.length; i++){
-            //console.log(listOfValidatedField[i]);
-        //}
-        for(var i = 0; i < listOfInvalidField.length; i++){
-        //while(listOfInvalidField.length > 1){
-            
-            //removeChildNodes(listOfInvalidField[i].helpId);
-            //sendMessageToHelpId(listOfInvalidField[i].helpId, listOfInvalidField[i].errMsg);
-            console.log(listOfInvalidField[i]);
-            
-        }
+        
     }
     
     /*
@@ -134,18 +124,13 @@ function editNodeText(regEx, input, helpId, minLength, errMsg){
 }
 
 function isNameOK(inputField, helpId){
-    //console.log("inputField : " + inputField.value);
     var isValid = editNodeText(/^[A-Za-z]+[\s-A-Za-z]*[A-Za-z]$/, inputField.value, helpId, nameObj.minLength, nameObj.errMsg);
     if(isValid){
         nameObj.valid = true;
         nameObj.value = inputField.value.trim();
     }else{
-        console.log("Current nameObj...");
-        console.log(nameObj);
         nameObj.valid = false;
         nameObj.value = "";
-        console.log("After changing validity...");
-        console.log(nameObj);
         listOfInvalidField.push(nameObj);
     }
 }
