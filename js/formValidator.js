@@ -21,11 +21,83 @@ var dateFinal = "";
 
 var displayInfo = document.getElementById('displayInfo');
 
+
+var nameObj = new ObjectField("", false, document.getElementById('name_help'), "Name must contain at least 5 letters and spaces only.", 5);
+
+var sexObj = new ObjectField("", false, document.getElementById('sex_help'), "You must choose one of the sexes", 0);
+
+//push(obj) - store obj in array
+//delete array[index] - delete obj in array
+
+var listOfInvalidField = [];
+
+var listOfValidatedField = [];
+//list all required fields in listOfInvalidField
+
+listOfInvalidField.push(nameObj);
+listOfInvalidField.push(sexObj);
+
+
 function validateAll(form){
+    //console.log("length of invalid: " + listOfInvalidField.length);
+    //check for valid fields, then remove it from the array
+    for(var i = 0; i < listOfInvalidField.length; i++){
+        //list all objects in listOfInvalidField
+        //console.log(listOfInvalidField[1]);
+        //console.log("value of i: " + i);
+        
+        if(listOfInvalidField[i].valid === true){
+            //console.log("This obj must not be here");
+            //console.log(listOfInvalidField[i]);
+            
+            var objIndex = listOfInvalidField.indexOf(listOfInvalidField[i]);
+            
+            //console.log("Valid object. index: " + objIndex);
+            //show what index will be deleted
+            //console.log(listOfInvalidField[objIndex]);
+            listOfInvalidField.splice(objIndex, 1);
+            //console.log("length of list after splice: " + listOfInvalidField.length);
+            //console.log();
+            
+            //substract 1 from index
+            i--;
+        }
+    }
     
-    name = form.name.value;
-    sex = form.sex.value;
-    notes = form.notes.value;
+    //console.log("length of invalid after splice: " + listOfInvalidField.length);
+    //check listOfInvalidField for invalid fields
+    if(listOfInvalidField.length > 0){
+        alert("validate all");
+        
+        //display all invalid fields
+        for(var i = 0; i < listOfInvalidField.length; i++){
+            //for debugging - display all invalid
+            //console.log(listOfInvalidField[i]);
+            
+            removeChildNodes(listOfInvalidField[i].helpId);
+            sendMessageToHelpId(listOfInvalidField[i].helpId, listOfInvalidField[i].errMsg);
+            
+            
+        }
+    }else{
+        //create JSON obj for DB
+        console.log("Successfully validated objects");
+        console.log(nameObj);
+        console.log(sexObj);
+        //for(var i = 0; i < listOfValidatedField.length; i++){
+            //console.log(listOfValidatedField[i]);
+        //}
+        for(var i = 0; i < listOfInvalidField.length; i++){
+        //while(listOfInvalidField.length > 1){
+            
+            //removeChildNodes(listOfInvalidField[i].helpId);
+            //sendMessageToHelpId(listOfInvalidField[i].helpId, listOfInvalidField[i].errMsg);
+            console.log(listOfInvalidField[i]);
+            
+        }
+    }
+    
+    /*
     
     var educationAttained = form.educAttained;
     for(var i = 0; i < educationAttained.length; i++){
@@ -34,51 +106,55 @@ function validateAll(form){
         }
     }
     
-    car = form.car.value;
-    street = form.street.value;
-    city = form.city.value;
-    phone = form.phone.value;
-    email = form.email.value;
-    username = form.username.value;
-    //passwordFinal
-    //dateFinal
-    
-    /* for debugging only */
-    displayInfo.innerHTML = "Name: " + name + "<br>";
-    displayInfo.innerHTML += "Sex: " + sex + "<br>";
-    displayInfo.innerHTML += "Education: " + education.join(', ') + "<br>";
-    displayInfo.innerHTML += "Notes: " + notes + "<br>";
-    displayInfo.innerHTML += "Car: " + car + "<br>";
-    displayInfo.innerHTML += "Street: " + street + "<br>";
-    displayInfo.innerHTML += "City: " + city + "<br>";
-    displayInfo.innerHTML += "Phone: " + phone + "<br>";
-    displayInfo.innerHTML += "Email: " + email + "<br>";
-    displayInfo.innerHTML += "Username: " + username + "<br>";
-    displayInfo.innerHTML += "Password: " + passwordFinal + "<br>";
-    displayInfo.innerHTML += "Date: " + dateFinal + "<br>";
+    */
 }
 
-
-function editNodeText(regex, input, helpId, fieldName){
-    
-    if(input.trim().length > 1){
-        while(helpId.childNodes[0]){
-            helpId.removeChild(helpId.childNodes[0]);
-        }
-        
-        if(!regex.test(input)){
-            helpId.appendChild(document.createTextNode("Enter valid " + fieldName));
-        }else{
-            helpId.appendChild(document.createTextNode(fieldName + ": " + input));
-        }
-    }else{
-        
-        while(helpId.childNodes[0]){
-            helpId.removeChild(helpId.childNodes[0]);
-        }
-        
-        helpId.appendChild(document.createTextNode("Enter your " + fieldName));
+function removeChildNodes(helpId){
+    while(helpId.childNodes[0]){
+        helpId.removeChild(helpId.childNodes[0]);
     }
+}
+
+function sendMessageToHelpId(helpId, message){
+    helpId.appendChild(document.createTextNode(message));
+}
+
+function editNodeText(regEx, input, helpId, minLength, errMsg){
+    if((input.trim().match(regEx)) && (input.trim().length >= minLength)){
+        
+        removeChildNodes(helpId);
+        sendMessageToHelpId(helpId, "Valid");
+        
+        return true;
+    }else{
+        removeChildNodes(helpId);
+        sendMessageToHelpId(helpId, errMsg);
+        return false;
+    }
+}
+
+function isNameOK(inputField, helpId){
+    //console.log("inputField : " + inputField.value);
+    var isValid = editNodeText(/^[A-Za-z]+[\s-A-Za-z]*[A-Za-z]$/, inputField.value, helpId, nameObj.minLength, nameObj.errMsg);
+    if(isValid){
+        nameObj.valid = true;
+        nameObj.value = inputField.value.trim();
+    }else{
+        console.log("Current nameObj...");
+        console.log(nameObj);
+        nameObj.valid = false;
+        nameObj.value = "";
+        console.log("After changing validity...");
+        console.log(nameObj);
+        listOfInvalidField.push(nameObj);
+    }
+}
+
+function setSexToTrue(value, helpId){
+    sexObj.value = value;
+    sexObj.valid = true;
+    removeChildNodes(helpId);
+    sendMessageToHelpId(helpId, "Valid");
 }
 
 function isTheFieldEmpty(inputField, helpId,fieldName){
@@ -224,7 +300,28 @@ function getFullDateObj(monthNum, dayNum, yearNum){
 
 
 
+/*
+validate all fields when submit button is clicked
+create an object for each field where flags, helpId, and message will be stored
+create an alert box saying check all inputs?
+when all inputs are valid, create a JSON object for database
+refactor each field's validation
+create all object fields with false validity
+when submitted check all objects for validity then push into 'invalid' array
+'invalid' array must be empty
 
+obj.field
+obj.valid
+obj.helpId
+*/
+
+function ObjectField(value, valid, helpId, errMsg, minLength){
+    this.value = value;
+    this.valid = valid;
+    this.helpId = helpId;
+    this.errMsg = errMsg;
+    this.minLength = minLength;
+}
 
 
 
