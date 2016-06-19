@@ -26,6 +26,10 @@ var nameObj = new ObjectField("", false, document.getElementById('name_help'), "
 
 var sexObj = new ObjectField("", false, document.getElementById('sex_help'), "You must choose one of the sexes", 0);
 
+var usernameObj = new ObjectField("", false, document.getElementById('username_help'), "Username must consist of at least 8 characters", 8);
+
+var passwordObj = new ObjectField("", false, document.getElementById('password_help'), "Passwords must match.", 8);
+
 //push(obj) - store obj in array
 //delete array[index] - delete obj in array
 
@@ -36,6 +40,8 @@ var listOfValidatedField = [];
 
 listOfInvalidField.push(nameObj);
 listOfInvalidField.push(sexObj);
+listOfInvalidField.push(usernameObj);
+listOfInvalidField.push(passwordObj);
 
 
 function validateAll(form){
@@ -84,6 +90,8 @@ function validateAll(form){
         console.log("Successfully validated objects");
         console.log(nameObj);
         console.log(sexObj);
+        console.log(usernameObj);
+        console.log(passwordObj);
         
     }
     
@@ -158,25 +166,43 @@ function isEmailOK(inputField, helpId, fieldName){
     return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, fieldName);
 }
 
-function isUsernameOK(inputField, helpId, fieldName){
-    return editNodeText(/^[A-Za-z]+[A-Za-z0-9_]*/, inputField.value, helpId, fieldName);
+function isUsernameOK(inputField, helpId){
+    var isValid = editNodeText(/^[A-Za-z]+[A-Za-z0-9_]*/, inputField.value, helpId, usernameObj.minLength, usernameObj.errMsg);
+    if(isValid){
+        usernameObj.valid = true;
+        usernameObj.value = inputField.value.trim();
+    }else{
+        usernameObj.valid = false;
+        usernameObj.value = "";
+        listOfInvalidField.push(usernameObj);
+    }
+    
 }
 
-function arePasswordsOK(password, password2, helpId, fieldName){
-    if(password.value.trim().length > 0 && password2.value.trim().length > 0){
-        if(password.value === password2.value){
-            while(helpId.childNodes[0]){
-                helpId.removeChild(helpId.childNodes[0]);
-            }
+function arePasswordsOK(password, password2, helpId){
+    if((password.value.trim().length >= passwordObj.minLength) && (password2.value.trim().length >= passwordObj.minLength)){
+        
+        if(password.value.trim() === password2.value.trim()){
+            removeChildNodes(helpId);
+            sendMessageToHelpId(helpId, "Passwords match");
             
-            passwordFinal = password.value;
-            helpId.appendChild(document.createTextNode(fieldName + ": " + password.value));
+            passwordObj.valid = true;
+            passwordObj.value = password.value.trim();
+        }else{
+            removeChildNodes(helpId);
+            sendMessageToHelpId(helpId, "Passwords must match");
+            
+            passwordObj.valid = false;
+            passwordObj.value = "";
+            listOfInvalidField.push(passwordObj);
         }
     }else{
-        while(helpId.childNodes[0]){
-            helpId.removeChild(helpId.childNodes[0]);
-        }
-        helpId.appendChild(document.createTextNode("Enter your passwords"));
+        removeChildNodes(helpId);
+        sendMessageToHelpId(helpId, "Passwords must be at least 8 characters long");
+        
+        passwordObj.valid = false;
+        passwordObj.value = "";
+        listOfInvalidField.push(passwordObj);
     }
 }
 
@@ -220,14 +246,6 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
         console.log(message);
     }
 
-}
-
-function isPatternOK(regEx){
-    
-}
-
-function showHelpMessage(message){
-    
 }
 
 
