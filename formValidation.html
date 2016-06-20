@@ -77,13 +77,31 @@
                         <li>
                             <span>Car Preference:</span><br>
                             
-                            <select name="car">
+                            <select id="car" name="car" onclick="setCar(this, document.getElementById('car_help'))">
+                                <option selected disabled>-Choose one-</option>
+                                
                                 <option>Lamborghini</option>
+                                
+                                <option>Tesla</option>
+                                
+                                <option>Bentley</option>
                                 
                                 <option>Ferrari</option>
                                 
                                 <option>Bugatti</option>
+                                
+                                <option>Toyota</option>
+                                
+                                <option>Ford</option>
+                                
+                                <option>Subaru</option>
+                                
+                                <option>Hyundai</option>
+                                
+                                
                             </select>
+                            
+                            <span id="car_help"></span>
                         </li>
                         
                         <li>
