@@ -38,6 +38,8 @@ var cityObj = new ObjectField("", false, document.getElementById('city_help'), "
 
 var phoneObj = new ObjectField("", false, document.getElementById('phone_help'), "Ex. 09277691525", 7);
 
+var emailObj = new ObjectField("", false, document.getElementById('email_help'), "neil@mysite.com", 8);
+
 //push(obj) - store obj in array
 //delete array[index] - delete obj in array
 
@@ -53,6 +55,7 @@ listOfInvalidField.push(passwordObj);
 listOfInvalidField.push(addressObj);
 listOfInvalidField.push(cityObj);
 listOfInvalidField.push(phoneObj);
+listOfInvalidField.push(emailObj);
 
 
 function validateAll(form){
@@ -122,6 +125,8 @@ function validateAll(form){
         console.log(cityObj);
         
         console.log(phoneObj);
+        
+        console.log(emailObj);
     }
     
     
@@ -219,7 +224,16 @@ function isPhoneOK(inputField, helpId){
 }
 
 function isEmailOK(inputField, helpId, fieldName){
-    return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, fieldName);
+    //return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, fieldName);
+    var isValid = editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, emailObj.minLength, emailObj.errMsg);
+    if(isValid){
+        emailObj.valid = true;
+        emailObj.value = "";
+    }else{
+        email.valid = false;
+        email.value = "";
+        listOfInvalidField.push(emailObj);
+    }
 }
 
 function isUsernameOK(inputField, helpId){
