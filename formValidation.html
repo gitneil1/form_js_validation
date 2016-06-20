@@ -59,11 +59,11 @@
                         <li>
                             <span>Education:</span><br>
                             
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="college">College</input><br>
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="college" onclick="addEduc(this)">College</input><br>
         
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="masters">Masters Degree</input><br>
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="masters" onclick="addEduc(this)">Masters Degree</input><br>
     
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="doctorate">Doctorate</input><br>
+                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="doctorate" onclick="addEduc(this)">Doctorate</input><br>
                         </li>
                         
                         <li>
@@ -89,7 +89,7 @@
                         <li>
                             <span>Enter your street address</span>
                             
-                            <input type="text" id="street" name="street" size="30" onblur="isAddressOK(this, document.getElementById('street_help'), 'street')"/>
+                            <input type="text" id="street" name="street" size="30" onblur="isAddressOK(this, document.getElementById('street_help'))"/>
                             
                             <span id="street_help"></span>
                         </li>
@@ -97,7 +97,7 @@
                         <li>
                             <span>Enter your city:</span>
                             
-                            <input type="text" name="city" size="30" onblur="isTheFieldEmpty(this, document.getElementById('city_help'), 'city')"/>
+                            <input type="text" name="city" size="30" onblur="isCityOK(this, document.getElementById('city_help'))"/>
                             
                             <span id="city_help"></span>
                         </li>
@@ -105,7 +105,7 @@
                         <li>
                             <span>Enter your phone number:</span>
                             
-                            <input type="text" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'),'phone')"/>
+                            <input type="text" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'))"/>
                             
                             <span id="phone_help"></span>
                         </li>
