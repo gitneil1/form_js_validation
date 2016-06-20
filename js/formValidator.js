@@ -30,6 +30,14 @@ var usernameObj = new ObjectField("", false, document.getElementById('username_h
 
 var passwordObj = new ObjectField("", false, document.getElementById('password_help'), "Passwords must match.", 8);
 
+var educationObj = new ObjectField([], true, undefined, "Education", 0);//not used
+
+var addressObj = new ObjectField("", false, document.getElementById('street_help'), "Ex. #123 Main St.", 10);
+
+var cityObj = new ObjectField("", false, document.getElementById('city_help'), "Ex. Quezon City", 8);
+
+var phoneObj = new ObjectField("", false, document.getElementById('phone_help'), "Ex. 09277691525", 7);
+
 //push(obj) - store obj in array
 //delete array[index] - delete obj in array
 
@@ -42,6 +50,9 @@ listOfInvalidField.push(nameObj);
 listOfInvalidField.push(sexObj);
 listOfInvalidField.push(usernameObj);
 listOfInvalidField.push(passwordObj);
+listOfInvalidField.push(addressObj);
+listOfInvalidField.push(cityObj);
+listOfInvalidField.push(phoneObj);
 
 
 function validateAll(form){
@@ -93,18 +104,32 @@ function validateAll(form){
         console.log(usernameObj);
         console.log(passwordObj);
         
-    }
-    
-    /*
-    
-    var educationAttained = form.educAttained;
-    for(var i = 0; i < educationAttained.length; i++){
-        if(educationAttained[i].checked){
-            education.push(educationAttained[i].value);
+        //not required field - refactor if necessary
+        var educationAttained = form.educAttained;
+        for(var i = 0; i < educationAttained.length; i++){
+            if(educationAttained[i].checked){
+                education.push(educationAttained[i].value);
+            }
         }
+        
+        console.log(education);
+        
+        //not required field - refactor if necessary
+        console.log(document.getElementById('notes').value);
+        
+        console.log(addressObj);
+        
+        console.log(cityObj);
+        
+        console.log(phoneObj);
     }
     
-    */
+    
+    
+}
+
+function addEduc(input){//not necessary?
+    //console.log("added to education: " + input.value);
 }
 
 function removeChildNodes(helpId){
@@ -154,12 +179,43 @@ function isTheFieldEmpty(inputField, helpId,fieldName){
     return editNodeText(/^[A-Za-z\.\' \-]{1,15}\s?[A-Za-z\.\' \-]{1,15}\s?[A-Za-z\.\' \-]{1,15}/, inputField.value, helpId, fieldName);
 }
 
-function isAddressOK(inputField, helpId, fieldName){
-    return editNodeText(/^#?[A-Za-z0-9\.\' \-]{5,30}$/, inputField.value, helpId, fieldName);
+function isAddressOK(inputField, helpId){
+    var isValid = editNodeText(/^#?[A-Za-z0-9\.\' \-]{5,30}$/, inputField.value, helpId, addressObj.minLength, addressObj.errMsg);
+    if(isValid){
+        addressObj.valid = true;
+        addressObj.value = inputField.value.trim();
+    }else{
+        addressObj.valid = false;
+        addressObj.value = "";
+        listOfInvalidField.push(addressObj);
+    }
+    
 }
 
-function isPhoneOK(inputField, helpId, fieldName){
-    return editNodeText(/^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/, inputField.value, helpId, fieldName);
+function isCityOK(inputField, helpId){
+    var isValid = editNodeText(/^[A-Za-z0-9\.\' \-]{5,30}$/, inputField.value, helpId, cityObj.minLength, cityObj.errMsg);
+    if(isValid){
+        cityObj.valid = true;
+        cityObj.value = inputField.value.trim();
+    }else{
+        cityObj.valid = false;
+        cityObj.value = "";
+        listOfInvalidField.push(cityObj);
+    }
+    
+}
+
+function isPhoneOK(inputField, helpId){
+    //var isValid = editNodeText(/^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/, inputField.value, helpId, phoneObj.minLength, phoneObj.errMsg);
+    var isValid = editNodeText(/^[0-9]+$/, inputField.value, helpId, phoneObj.minLength, phoneObj.errMsg);
+    if(isValid){
+        phoneObj.valid = true;
+        phoneObj.value = inputField.value.trim();
+    }else{
+        phoneObj.valid = false;
+        phoneObj.value = "";
+        listOfInvalidField.push(phoneObj);
+    }
 }
 
 function isEmailOK(inputField, helpId, fieldName){
