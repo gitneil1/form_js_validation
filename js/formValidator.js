@@ -274,13 +274,10 @@ function arePasswordsOK(password, password2, helpId){
 }
 
 function setCar(inputField, helpId){
-    //console.log("Clicked car");
     if(inputField.value != "-Choose one-"){
-        //console.log("Chose car");
         carObj.valid = true;
         carObj.value = inputField.value;
     }else{
-        //console.log("Didn\'t choose");
         carObj.valid = false;
         carObj.value = "-Choose one-";
         listOfInvalidField.push(carObj);
