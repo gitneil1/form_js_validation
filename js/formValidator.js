@@ -40,13 +40,9 @@ var phoneObj = new ObjectField("", false, document.getElementById('phone_help'),
 
 var emailObj = new ObjectField("", false, document.getElementById('email_help'), "neil@mysite.com", 8);
 
-//push(obj) - store obj in array
-//delete array[index] - delete obj in array
+var carObj = new ObjectField("", false, document.getElementById('car_help'), "Choose your favorite car", 0);
 
 var listOfInvalidField = [];
-
-var listOfValidatedField = [];
-//list all required fields in listOfInvalidField
 
 listOfInvalidField.push(nameObj);
 listOfInvalidField.push(sexObj);
@@ -56,7 +52,7 @@ listOfInvalidField.push(addressObj);
 listOfInvalidField.push(cityObj);
 listOfInvalidField.push(phoneObj);
 listOfInvalidField.push(emailObj);
-
+listOfInvalidField.push(carObj);
 
 function validateAll(form){
     //console.log("length of invalid: " + listOfInvalidField.length);
@@ -127,6 +123,8 @@ function validateAll(form){
         console.log(phoneObj);
         
         console.log(emailObj);
+        
+        console.log(carObj);
     }
     
     
@@ -224,11 +222,10 @@ function isPhoneOK(inputField, helpId){
 }
 
 function isEmailOK(inputField, helpId, fieldName){
-    //return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, fieldName);
     var isValid = editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, emailObj.minLength, emailObj.errMsg);
     if(isValid){
         emailObj.valid = true;
-        emailObj.value = "";
+        emailObj.value = inputField.value.trim();
     }else{
         email.valid = false;
         email.value = "";
@@ -273,6 +270,23 @@ function arePasswordsOK(password, password2, helpId){
         passwordObj.valid = false;
         passwordObj.value = "";
         listOfInvalidField.push(passwordObj);
+    }
+}
+
+function setCar(inputField, helpId){
+    //console.log("Clicked car");
+    if(inputField.value != "-Choose one-"){
+        //console.log("Chose car");
+        carObj.valid = true;
+        carObj.value = inputField.value;
+    }else{
+        //console.log("Didn\'t choose");
+        carObj.valid = false;
+        carObj.value = "-Choose one-";
+        listOfInvalidField.push(carObj);
+        
+        removeChildNodes(helpId);
+        sendMessageToHelpId(helpId, carObj.errMsg);
     }
 }
 
