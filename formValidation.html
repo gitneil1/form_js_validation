@@ -4,60 +4,64 @@
         <title>Simple Javascript Form Validation</title>
         
         <meta charset="UTF-8">
+        
+        <link rel="stylesheet" href="css/form_style.css">
     </head>
     
     <body>
         <div id="container">
             <div id="forms_div">
                 <!--<form id="myForm" method="get" onsubmit="return validateAll(this)"> for server-side validation  -->
-                <form id="myForm" method="get">
+                <form id="myForm" method="get" class="info_form">
                     <ul>
                         <li>
-                            <span>Please enter your info.</span>
+                            <h2>Please enter your info.</h2>
+                            
+                            <span class="required_notification">* Denotes Required</span>
                         </li>
                         
                         <li>
-                            <span>Enter your name: </span>
+                            <label for="name">Enter your name: </label>
 
                             <input type="text" id="name" name="name" size="30" onblur="isNameOK(this, document.getElementById('name_help'))"/>
 
-                            <span id="name_help"></span>
+                            <span class="form_hint" id="name_help"></span>
                         </li>
                         
                         <li>
-                            <span>Sex:</span><br>
+                            <label for="sex">Sex:</label><br>
                             
                             <input type="radio" id="sex" name="sex" value="male" onchange="setSexToTrue('male', document.getElementById('sex_help'))">Male</input>
                     
                             <input type="radio" id="sex" name="sex" value="female" onchange="setSexToTrue('female', document.getElementById('sex_help'))">Female</input>
                 
-                            <span id="sex_help"></span>
+                            <span class="form_hint" id="sex_help"></span>
                         
                         </li>
             
                         <li>
                             <span>Account information:</span><br>
                             
-                            <span>Username</span>
+                            <label for="username">Username</label>
                             
                             <input type="text" id="username" name="username" size="20" onblur="isUsernameOK(this, document.getElementById('username_help'))"/>
                             
-                            <span id="username_help"></span>
+                            <span class="form_hint" id="username_help"></span>
                         </li>
             
                         <li>
-                            <span>Password</span>
+                            <label for="password">Password</label>
                             
                             <input type="password" id="password" name="password" size="30" onblur="arePasswordsOK(this, document.getElementById('password2'), document.getElementById('password_help'))" placeholder="Password must be at least 8 characters long."/><br>
                             
                             <input type="password" id="password2" name="password2" size="30" onblur="arePasswordsOK(document.getElementById('password'), this, document.getElementById('password_help'))" placeholder="Re-type password"/>
                             
-                            <span id="password_help"></span>
+                            <span class="form_hint" id="password_help"></span>
                             
                         </li>
                         
                         <li>
-                            <span>Education:</span><br>
+                            <label for="educAttained">Education:</label><br>
                             
                             <input type="checkbox" id="educAttained" class="educAttained" name="education" value="college" onclick="addEduc(this)">College</input><br>
         
@@ -67,15 +71,15 @@
                         </li>
                         
                         <li>
-                            <span>Notes:</span><br>
+                            <label for="notes">Notes:</label><br>
                             
                             <textarea id="notes" name="notes" cols="40" rows="7"></textarea>
                             
-                            <span id="note_help"></span>
+                            <span class="form_hint" id="note_help"></span>
                         </li>
                         
                         <li>
-                            <span>Car Preference:</span><br>
+                            <label for="car">Car Preference:</label><br>
                             
                             <select id="car" name="car" onclick="setCar(this, document.getElementById('car_help'))">
                                 <option selected disabled>-Choose one-</option>
@@ -101,43 +105,43 @@
                                 
                             </select>
                             
-                            <span id="car_help"></span>
+                            <span class="form_hint" id="car_help"></span>
                         </li>
                         
                         <li>
-                            <span>Enter your street address</span>
+                            <label for="street">Enter your street address</label>
                             
                             <input type="text" id="street" name="street" size="30" onblur="isAddressOK(this, document.getElementById('street_help'))"/>
                             
-                            <span id="street_help"></span>
+                            <span class="form_hint" id="street_help"></span>
                         </li>
                         
                         <li>
-                            <span>Enter your city:</span>
+                            <label for="city">Enter your city:</label>
                             
-                            <input type="text" name="city" size="30" onblur="isCityOK(this, document.getElementById('city_help'))"/>
+                            <input type="text" id="city" name="city" size="30" onblur="isCityOK(this, document.getElementById('city_help'))"/>
                             
-                            <span id="city_help"></span>
+                            <span class="form_hint" id="city_help"></span>
                         </li>
                         
                         <li>
-                            <span>Enter your phone number:</span>
+                            <label for="phone">Enter your phone number:</label>
                             
-                            <input type="text" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'))"/>
+                            <input type="text" id="phone" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'))"/>
                             
-                            <span id="phone_help"></span>
+                            <span class="form_hint" id="phone_help"></span>
                         </li>
                         
                         <li>
-                            <span>Enter your email:</span>
+                            <label for="email">Enter your email:</label>
                             
-                            <input type="text" name="email" size="20" onblur="isEmailOK(this, document.getElementById('email_help'))"/>
+                            <input type="text" id="email" name="email" size="20" onblur="isEmailOK(this, document.getElementById('email_help'))"/>
                             
-                            <span id="email_help"></span>
+                            <span class="form_hint" id="email_help"></span>
                         </li>
 
                         <li>
-                            <span>Start Date</span>
+                            <label>Start Date</label>
                             
                             <select id="month">
                                 <option selected disabled>-Month-</option>
@@ -159,14 +163,14 @@
                             
                             <input type="text" id="year" name="year" size="4" placeholder="Year" onblur="isDayOK(document.getElementById('month'), document.getElementById('day'), this)"/>
                             
-                            <span id="date_help"></span>
+                            <span class="form_hint" id="date_help"></span>
                         </li>
                         
                         <li></li>
 
                         <li>
                             <!--<button type="submit">Submit</button>-->
-                            <input type="button" onclick="validateAll(document.getElementById('myForm'))" value="Submit"/>
+                            <input type="button" class="validate" onclick="validateAll(document.getElementById('myForm'))" value="Submit"/>
                         </li>
                         
                     </ul>    
