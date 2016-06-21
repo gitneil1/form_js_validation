@@ -42,6 +42,8 @@ var emailObj = new ObjectField("", false, document.getElementById('email_help'),
 
 var carObj = new ObjectField("", false, document.getElementById('car_help'), "Choose your favorite car", 0);
 
+var dateObj = new ObjectField("", false, document.getElementById('date_help'), "Enter date", 0);
+
 var listOfInvalidField = [];
 
 listOfInvalidField.push(nameObj);
@@ -53,9 +55,10 @@ listOfInvalidField.push(cityObj);
 listOfInvalidField.push(phoneObj);
 listOfInvalidField.push(emailObj);
 listOfInvalidField.push(carObj);
+listOfInvalidField.push(dateObj);
 
 function validateAll(form){
-    //console.log("length of invalid: " + listOfInvalidField.length);
+    console.log("length of invalid: " + listOfInvalidField.length);
     //check for valid fields, then remove it from the array
     for(var i = 0; i < listOfInvalidField.length; i++){
         //list all objects in listOfInvalidField
@@ -125,6 +128,8 @@ function validateAll(form){
         console.log(emailObj);
         
         console.log(carObj);
+        
+        console.log(dateObj);
     }
     
     
@@ -306,7 +311,7 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
     }
     
     if(message == ""){
-        console.log("Proceeding to isFullDateOK()");
+        //console.log("Proceeding to isFullDateOK()");
         
         var splitMonth = monthNum0.value.split('_');
         var monthStr = splitMonth[1];
@@ -314,17 +319,35 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
         var dayNum = parseInt(dayNum0.value);
         var yearNum = parseInt(yearNum0.value);
         
-        console.log(monthNum + " " + dayNum + " " + yearNum);
+        //console.log(monthNum + " " + dayNum + " " + yearNum);
         
         var fullDateObj = getFullDateObj(monthNum, dayNum, yearNum);
         if(fullDateObj.isOK){
-            console.log(fullDateObj.message);
+            //console.log(fullDateObj.message);
             dateFinal = monthNum + "/" + dayNum + "/" + yearNum;
+            
+            dateObj.valid = true;
+            dateObj.value = dateFinal;
+            
+            //console.log("dateFinal: " + dateFinal);
+            
+            removeChildNodes(document.getElementById('date_help'));//quick-fix
+            sendMessageToHelpId(document.getElementById('date_help'), "Date OK");
+        
         }else{
-            console.log(fullDateObj.message);
+            //console.log(fullDateObj.message);
+            
+            dateObj.valid = false;
+            dateObj.value = "";
+            listOfInvalidField.push(dateObj);
+            
+            removeChildNodes(document.getElementById('date_help'));//quick-fix
+            sendMessageToHelpId(document.getElementById('date_help'), fullDateObj.message);
         }
     }else{
         console.log(message);
+        removeChildNodes(document.getElementById('date_help'));//quick-fix
+        sendMessageToHelpId(document.getElementById('date_help'), dateObj.errMsg);
     }
 
 }
