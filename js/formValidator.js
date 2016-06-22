@@ -93,6 +93,8 @@ function validateAll(form){
             //for debugging - display all invalid
             //console.log(listOfInvalidField[i]);
             
+            showInvalid(listOfInvalidField[i].helpId)//testing
+            
             removeChildNodes(listOfInvalidField[i].helpId);
             sendMessageToHelpId(listOfInvalidField[i].helpId, listOfInvalidField[i].errMsg);
             
@@ -164,15 +166,30 @@ function editNodeText(regEx, input, helpId, minLength, errMsg){
     }
 }
 
+function showValid(helpId){
+    helpId.style.display = "inline";//testing
+    helpId.style.background = "#228B22";//testing
+}
+
+function showInvalid(helpId){
+    helpId.style.display = "inline";//testing
+    helpId.style.background = "#d45252";
+}
+
 function isNameOK(inputField, helpId){
     var isValid = editNodeText(/^[A-Za-z]+[\s-A-Za-z]*[A-Za-z]$/, inputField.value, helpId, nameObj.minLength, nameObj.errMsg);
     if(isValid){
         nameObj.valid = true;
         nameObj.value = inputField.value.trim();
+        
+        showValid(helpId);
+        
     }else{
         nameObj.valid = false;
         nameObj.value = "";
         listOfInvalidField.push(nameObj);
+        
+        showInvalid(helpId);
     }
 }
 
@@ -181,6 +198,8 @@ function setSexToTrue(value, helpId){
     sexObj.valid = true;
     removeChildNodes(helpId);
     sendMessageToHelpId(helpId, "Valid");
+    
+    showValid(helpId);
 }
 
 function isTheFieldEmpty(inputField, helpId,fieldName){
@@ -192,10 +211,20 @@ function isAddressOK(inputField, helpId){
     if(isValid){
         addressObj.valid = true;
         addressObj.value = inputField.value.trim();
+        
+        showValid(helpId);
+        
+        //removeChildNodes(helpId);
+        //sendMessageToHelpId(helpId, "Valid");
     }else{
         addressObj.valid = false;
         addressObj.value = "";
         listOfInvalidField.push(addressObj);
+        
+        showInvalid(helpId);
+        
+        //removeChildNodes(helpId);
+        //sendMessageToHelpId(helpId, addressObj.errMsg);
     }
     
 }
@@ -205,10 +234,20 @@ function isCityOK(inputField, helpId){
     if(isValid){
         cityObj.valid = true;
         cityObj.value = inputField.value.trim();
+        
+        showValid(helpId);
+        
+        //removeChildNodes(helpId);
+        //sendMessageToHelpId(helpId, "Valid");
     }else{
         cityObj.valid = false;
         cityObj.value = "";
         listOfInvalidField.push(cityObj);
+        
+        showInvalid(helpId);
+        
+        //removeChildNodes(helpId);
+        //sendMessageToHelpId(helpId, cityObj.errMsg);
     }
     
 }
@@ -219,10 +258,14 @@ function isPhoneOK(inputField, helpId){
     if(isValid){
         phoneObj.valid = true;
         phoneObj.value = inputField.value.trim();
+        
+        showValid(helpId);
     }else{
         phoneObj.valid = false;
         phoneObj.value = "";
         listOfInvalidField.push(phoneObj);
+        
+        showInvalid(helpId);
     }
 }
 
@@ -231,10 +274,14 @@ function isEmailOK(inputField, helpId, fieldName){
     if(isValid){
         emailObj.valid = true;
         emailObj.value = inputField.value.trim();
+        
+        showValid(helpId);
     }else{
         email.valid = false;
         email.value = "";
         listOfInvalidField.push(emailObj);
+        
+        showInvalid(helpId);
     }
 }
 
@@ -243,10 +290,14 @@ function isUsernameOK(inputField, helpId){
     if(isValid){
         usernameObj.valid = true;
         usernameObj.value = inputField.value.trim();
+        
+        showValid(helpId);
     }else{
         usernameObj.valid = false;
         usernameObj.value = "";
         listOfInvalidField.push(usernameObj);
+        
+        showInvalid(helpId);
     }
     
 }
@@ -260,6 +311,8 @@ function arePasswordsOK(password, password2, helpId){
             
             passwordObj.valid = true;
             passwordObj.value = password.value.trim();
+            
+            showValid(helpId);
         }else{
             removeChildNodes(helpId);
             sendMessageToHelpId(helpId, "Passwords must match");
@@ -267,6 +320,8 @@ function arePasswordsOK(password, password2, helpId){
             passwordObj.valid = false;
             passwordObj.value = "";
             listOfInvalidField.push(passwordObj);
+            
+            showInvalid(helpId);
         }
     }else{
         removeChildNodes(helpId);
@@ -282,10 +337,17 @@ function setCar(inputField, helpId){
     if(inputField.value != "-Choose one-"){
         carObj.valid = true;
         carObj.value = inputField.value;
+        
+        showValid(helpId);
+        
+        removeChildNodes(helpId);
+        sendMessageToHelpId(helpId, "Valid");
     }else{
         carObj.valid = false;
         carObj.value = "-Choose one-";
         listOfInvalidField.push(carObj);
+        
+        showInvalid(helpId);
         
         removeChildNodes(helpId);
         sendMessageToHelpId(helpId, carObj.errMsg);
@@ -331,6 +393,8 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
             
             //console.log("dateFinal: " + dateFinal);
             
+            showValid(document.getElementById('date_help'));
+            
             removeChildNodes(document.getElementById('date_help'));//quick-fix
             sendMessageToHelpId(document.getElementById('date_help'), "Date OK");
         
@@ -341,11 +405,16 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
             dateObj.value = "";
             listOfInvalidField.push(dateObj);
             
+            showInvalid(document.getElementById('date_help'));
+            
             removeChildNodes(document.getElementById('date_help'));//quick-fix
             sendMessageToHelpId(document.getElementById('date_help'), fullDateObj.message);
         }
     }else{
         console.log(message);
+        
+        showInvalid(document.getElementById('date_help'));
+        
         removeChildNodes(document.getElementById('date_help'));//quick-fix
         sendMessageToHelpId(document.getElementById('date_help'), dateObj.errMsg);
     }
