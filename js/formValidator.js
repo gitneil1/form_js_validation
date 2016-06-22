@@ -50,15 +50,16 @@ listOfInvalidField.push(nameObj);
 listOfInvalidField.push(sexObj);
 listOfInvalidField.push(usernameObj);
 listOfInvalidField.push(passwordObj);
+listOfInvalidField.push(carObj);
 listOfInvalidField.push(addressObj);
 listOfInvalidField.push(cityObj);
 listOfInvalidField.push(phoneObj);
 listOfInvalidField.push(emailObj);
-listOfInvalidField.push(carObj);
 listOfInvalidField.push(dateObj);
 
+
 function validateAll(form){
-    console.log("length of invalid: " + listOfInvalidField.length);
+    //console.log("length of invalid: " + listOfInvalidField.length);
     //check for valid fields, then remove it from the array
     for(var i = 0; i < listOfInvalidField.length; i++){
         //list all objects in listOfInvalidField
@@ -101,8 +102,52 @@ function validateAll(form){
             
         }
     }else{
+        //not required field - refactor if necessary
+        var educationAttained = form.educAttained;
+        for(var i = 0; i < educationAttained.length; i++){
+            if(educationAttained[i].checked){
+                education.push(educationAttained[i].value);
+            }
+        }
+        
+        var educationStr = "";
+        if(education.length > 0){
+            for(var i = 0; i < education.length; i++){
+                educationStr += education[i] + ", ";
+            }
+        }
+        
+        
         //create JSON obj for DB
-        console.log("Successfully validated objects");
+        var userObj = {
+            name: nameObj.value,
+            sex: sexObj.value,
+            username: usernameObj.value,
+            password: passwordObj.value,
+            education: educationStr,
+            notes: document.getElementById('notes').value,
+            car: carObj.value,
+            street: addressObj.value,
+            city: cityObj.value,
+            phone: phoneObj.value,
+            email: emailObj.value,
+            date: dateObj.value
+        };
+        
+        console.log(userObj);
+        
+        //sendMessageToHelpId(document.getElementById('displayInfo'), nameObj.value);
+        /*
+        //console.log("Successfully validated objects");
+        sendMessageToHelpId(document.getElementById('name_holder'), nameObj.value);
+        
+        sendMessageToHelpId(document.getElementById('sex_holder'), sexObj.value);
+        
+        sendMessageToHelpId(document.getElementById('username_holder'), usernameObj.value);
+        
+        sendMessageToHelpId(document.getElementById('password_holder'), passwordObj.value);
+        //sendMessageToHelpId(document.getElementById(''), Obj.value);
+        
         console.log(nameObj);
         console.log(sexObj);
         console.log(usernameObj);
@@ -132,6 +177,7 @@ function validateAll(form){
         console.log(carObj);
         
         console.log(dateObj);
+        */
     }
     
     

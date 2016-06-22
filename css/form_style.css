@@ -13,6 +13,17 @@ body{
     font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
 
+div#forms_div{
+    width: 800px;
+    float: left;
+}
+
+form.info_form{
+    border: 1px solid black;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
 .info_form h2, .info_form label{
     /*font-family: Georgia, "Arial", "Times New Roman", serif;*/
     font-family: "Arial";
@@ -24,6 +35,7 @@ body{
 
 .info_form ul{
     width: 750px;
+    
     list-style-type: none;
     list-style-position: outside;
     margin: 0;
@@ -32,7 +44,7 @@ body{
 
 .info_form li{
     padding: 12px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #A9A9A9;
     position: relative;
 }
 
@@ -139,7 +151,7 @@ body{
 }*/
 
 .info_form input:focus + .form_hint{/* check */
-    display: inline;
+    /*display: inline;*/
 }
 
 .info_form .radio_style{
@@ -174,7 +186,11 @@ body{
     width: 50px;
 }
 
-
+/* will get called if input is valid*/
+.info_form .input_valid{
+    background: "#228B22";
+    display: inline;
+}
 
 
 
