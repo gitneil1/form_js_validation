@@ -31,16 +31,16 @@
                         <li>
                             <label for="sex">Sex:</label><br>
                             
-                            <input type="radio" id="sex" name="sex" value="male" onchange="setSexToTrue('male', document.getElementById('sex_help'))">Male</input>
+                            <input type="radio" class="radio_style" id="sex" name="sex" value="male" onchange="setSexToTrue('male', document.getElementById('sex_help'))">Male</input>
                     
-                            <input type="radio" id="sex" name="sex" value="female" onchange="setSexToTrue('female', document.getElementById('sex_help'))">Female</input>
+                            <input type="radio" class="radio_style" id="sex" name="sex" value="female" onchange="setSexToTrue('female', document.getElementById('sex_help'))">Female</input>
                 
                             <span class="form_hint" id="sex_help"></span>
                         
                         </li>
             
                         <li>
-                            <span>Account information:</span><br>
+                            <b>Account information:</b><br><br>
                             
                             <label for="username">Username</label>
                             
@@ -61,13 +61,13 @@
                         </li>
                         
                         <li>
-                            <label for="educAttained">Education:</label><br>
+                            <label for="educAttained">Education:</label><br><br>
                             
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="college" onclick="addEduc(this)">College</input><br>
+                            <input type="checkbox" class="educ" id="educAttained" class="educAttained" name="education" value="college" onclick="addEduc(this)">College</input><br>
         
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="masters" onclick="addEduc(this)">Masters Degree</input><br>
+                            <input type="checkbox" class="educ" id="educAttained" class="educAttained" name="education" value="masters" onclick="addEduc(this)">Masters Degree</input><br>
     
-                            <input type="checkbox" id="educAttained" class="educAttained" name="education" value="doctorate" onclick="addEduc(this)">Doctorate</input><br>
+                            <input type="checkbox" class="educ" id="educAttained" class="educAttained" name="education" value="doctorate" onclick="addEduc(this)">Doctorate</input><br>
                         </li>
                         
                         <li>
@@ -109,7 +109,7 @@
                         </li>
                         
                         <li>
-                            <label for="street">Enter your street address</label>
+                            <label for="street">Street:</label>
                             
                             <input type="text" id="street" name="street" size="30" onblur="isAddressOK(this, document.getElementById('street_help'))"/>
                             
@@ -117,7 +117,7 @@
                         </li>
                         
                         <li>
-                            <label for="city">Enter your city:</label>
+                            <label for="city">City:</label>
                             
                             <input type="text" id="city" name="city" size="30" onblur="isCityOK(this, document.getElementById('city_help'))"/>
                             
@@ -125,7 +125,7 @@
                         </li>
                         
                         <li>
-                            <label for="phone">Enter your phone number:</label>
+                            <label for="phone">Phone number:</label>
                             
                             <input type="text" id="phone" name="phone" size="20" onblur="isPhoneOK(this, document.getElementById('phone_help'))"/>
                             
@@ -133,7 +133,7 @@
                         </li>
                         
                         <li>
-                            <label for="email">Enter your email:</label>
+                            <label for="email">E-mail:</label>
                             
                             <input type="text" id="email" name="email" size="20" onblur="isEmailOK(this, document.getElementById('email_help'))"/>
                             
@@ -141,7 +141,7 @@
                         </li>
 
                         <li>
-                            <label>Start Date</label>
+                            <label>Start Date</label><br>
                             
                             <select id="month">
                                 <option selected disabled>-Month-</option>
