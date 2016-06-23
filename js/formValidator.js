@@ -59,42 +59,29 @@ listOfInvalidField.push(dateObj);
 
 
 function validateAll(form){
-    //console.log("length of invalid: " + listOfInvalidField.length);
+    
     //check for valid fields, then remove it from the array
     for(var i = 0; i < listOfInvalidField.length; i++){
         //list all objects in listOfInvalidField
-        //console.log(listOfInvalidField[1]);
-        //console.log("value of i: " + i);
-        
         if(listOfInvalidField[i].valid === true){
-            //console.log("This obj must not be here");
-            //console.log(listOfInvalidField[i]);
             
             var objIndex = listOfInvalidField.indexOf(listOfInvalidField[i]);
             
-            //console.log("Valid object. index: " + objIndex);
-            //show what index will be deleted
-            //console.log(listOfInvalidField[objIndex]);
             listOfInvalidField.splice(objIndex, 1);
-            //console.log("length of list after splice: " + listOfInvalidField.length);
-            //console.log();
             
             //substract 1 from index
             i--;
         }
     }
     
-    //console.log("length of invalid after splice: " + listOfInvalidField.length);
     //check listOfInvalidField for invalid fields
     if(listOfInvalidField.length > 0){
         alert("validate all");
         
         //display all invalid fields
         for(var i = 0; i < listOfInvalidField.length; i++){
-            //for debugging - display all invalid
-            //console.log(listOfInvalidField[i]);
             
-            showInvalid(listOfInvalidField[i].helpId)//testing
+            showInvalid(listOfInvalidField[i].helpId);
             
             removeChildNodes(listOfInvalidField[i].helpId);
             sendMessageToHelpId(listOfInvalidField[i].helpId, listOfInvalidField[i].errMsg);
@@ -102,7 +89,7 @@ function validateAll(form){
             
         }
     }else{
-        //not required field - refactor if necessary
+        //push all checked values to array
         var educationAttained = form.educAttained;
         for(var i = 0; i < educationAttained.length; i++){
             if(educationAttained[i].checked){
@@ -116,7 +103,6 @@ function validateAll(form){
                 educationStr += education[i] + ", ";
             }
         }
-        
         
         //create JSON obj for DB
         var userObj = {
@@ -136,56 +122,10 @@ function validateAll(form){
         
         console.log(userObj);
         
-        //sendMessageToHelpId(document.getElementById('displayInfo'), nameObj.value);
-        /*
-        //console.log("Successfully validated objects");
-        sendMessageToHelpId(document.getElementById('name_holder'), nameObj.value);
-        
-        sendMessageToHelpId(document.getElementById('sex_holder'), sexObj.value);
-        
-        sendMessageToHelpId(document.getElementById('username_holder'), usernameObj.value);
-        
-        sendMessageToHelpId(document.getElementById('password_holder'), passwordObj.value);
-        //sendMessageToHelpId(document.getElementById(''), Obj.value);
-        
-        console.log(nameObj);
-        console.log(sexObj);
-        console.log(usernameObj);
-        console.log(passwordObj);
-        
-        //not required field - refactor if necessary
-        var educationAttained = form.educAttained;
-        for(var i = 0; i < educationAttained.length; i++){
-            if(educationAttained[i].checked){
-                education.push(educationAttained[i].value);
-            }
-        }
-        
-        console.log(education);
-        
-        //not required field - refactor if necessary
-        console.log(document.getElementById('notes').value);
-        
-        console.log(addressObj);
-        
-        console.log(cityObj);
-        
-        console.log(phoneObj);
-        
-        console.log(emailObj);
-        
-        console.log(carObj);
-        
-        console.log(dateObj);
-        */
     }
     
     
     
-}
-
-function addEduc(input){//not necessary?
-    //console.log("added to education: " + input.value);
 }
 
 function removeChildNodes(helpId){
@@ -213,12 +153,12 @@ function editNodeText(regEx, input, helpId, minLength, errMsg){
 }
 
 function showValid(helpId){
-    helpId.style.display = "inline";//testing
-    helpId.style.background = "#228B22";//testing
+    helpId.style.display = "inline";
+    helpId.style.background = "#228B22";
 }
 
 function showInvalid(helpId){
-    helpId.style.display = "inline";//testing
+    helpId.style.display = "inline";
     helpId.style.background = "#d45252";
 }
 
@@ -260,8 +200,6 @@ function isAddressOK(inputField, helpId){
         
         showValid(helpId);
         
-        //removeChildNodes(helpId);
-        //sendMessageToHelpId(helpId, "Valid");
     }else{
         addressObj.valid = false;
         addressObj.value = "";
@@ -269,8 +207,6 @@ function isAddressOK(inputField, helpId){
         
         showInvalid(helpId);
         
-        //removeChildNodes(helpId);
-        //sendMessageToHelpId(helpId, addressObj.errMsg);
     }
     
 }
@@ -283,8 +219,6 @@ function isCityOK(inputField, helpId){
         
         showValid(helpId);
         
-        //removeChildNodes(helpId);
-        //sendMessageToHelpId(helpId, "Valid");
     }else{
         cityObj.valid = false;
         cityObj.value = "";
@@ -292,14 +226,11 @@ function isCityOK(inputField, helpId){
         
         showInvalid(helpId);
         
-        //removeChildNodes(helpId);
-        //sendMessageToHelpId(helpId, cityObj.errMsg);
     }
     
 }
 
 function isPhoneOK(inputField, helpId){
-    //var isValid = editNodeText(/^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/, inputField.value, helpId, phoneObj.minLength, phoneObj.errMsg);
     var isValid = editNodeText(/^[0-9]+$/, inputField.value, helpId, phoneObj.minLength, phoneObj.errMsg);
     if(isValid){
         phoneObj.valid = true;
@@ -419,25 +350,18 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
     }
     
     if(message == ""){
-        //console.log("Proceeding to isFullDateOK()");
-        
         var splitMonth = monthNum0.value.split('_');
         var monthStr = splitMonth[1];
         var monthNum = parseInt(splitMonth[0]);
         var dayNum = parseInt(dayNum0.value);
         var yearNum = parseInt(yearNum0.value);
         
-        //console.log(monthNum + " " + dayNum + " " + yearNum);
-        
         var fullDateObj = getFullDateObj(monthNum, dayNum, yearNum);
         if(fullDateObj.isOK){
-            //console.log(fullDateObj.message);
             dateFinal = monthNum + "/" + dayNum + "/" + yearNum;
             
             dateObj.valid = true;
             dateObj.value = dateFinal;
-            
-            //console.log("dateFinal: " + dateFinal);
             
             showValid(document.getElementById('date_help'));
             
@@ -445,15 +369,13 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
             sendMessageToHelpId(document.getElementById('date_help'), "Date OK");
         
         }else{
-            //console.log(fullDateObj.message);
-            
             dateObj.valid = false;
             dateObj.value = "";
             listOfInvalidField.push(dateObj);
             
             showInvalid(document.getElementById('date_help'));
             
-            removeChildNodes(document.getElementById('date_help'));//quick-fix
+            removeChildNodes(document.getElementById('date_help'));
             sendMessageToHelpId(document.getElementById('date_help'), fullDateObj.message);
         }
     }else{
@@ -461,7 +383,7 @@ function isDayOK(monthNum0, dayNum0, yearNum0){
         
         showInvalid(document.getElementById('date_help'));
         
-        removeChildNodes(document.getElementById('date_help'));//quick-fix
+        removeChildNodes(document.getElementById('date_help'));
         sendMessageToHelpId(document.getElementById('date_help'), dateObj.errMsg);
     }
 
@@ -519,23 +441,6 @@ function getFullDateObj(monthNum, dayNum, yearNum){
         return dateObj;
     }
 }
-
-
-
-/*
-validate all fields when submit button is clicked
-create an object for each field where flags, helpId, and message will be stored
-create an alert box saying check all inputs?
-when all inputs are valid, create a JSON object for database
-refactor each field's validation
-create all object fields with false validity
-when submitted check all objects for validity then push into 'invalid' array
-'invalid' array must be empty
-
-obj.field
-obj.valid
-obj.helpId
-*/
 
 function ObjectField(value, valid, helpId, errMsg, minLength){
     this.value = value;
