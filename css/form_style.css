@@ -25,7 +25,6 @@ form.info_form{
 }
 
 .info_form h2, .info_form label{
-    /*font-family: Georgia, "Arial", "Times New Roman", serif;*/
     font-family: "Arial";
 }
 
@@ -139,19 +138,6 @@ form.info_form{
     z-index: 999;
     position: absolute;
     display: none;
-}
-
-/*
-.form_hint::before{
-    content: "\25C0";
-    color: #d45252;
-    position: absolute;
-    top: 1px;
-    left: -6px;
-}*/
-
-.info_form input:focus + .form_hint{/* check */
-    /*display: inline;*/
 }
 
 .info_form .radio_style{
